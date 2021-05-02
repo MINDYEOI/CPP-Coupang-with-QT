@@ -11,9 +11,18 @@ protected:
 	static DoublySortedLinkedList<ItemType> m_List;		// 아이템 리스트 (master list)
 
 public:
-	// 입력된 ID와 일치하는 상품을 찾아서 해당 상품의 자세한 정보를 화면에 출력
-	int SearchAndDisplayByID(int ID) {
-		if (m_List.GetLength() == 0) {
+
+	/**
+*	@brief	Search the item by item code and Display the item.
+*	@pre	List should be initialized
+*	@post	none
+*	@param	item code(id)
+*	@return	if it works well return true, otherwise return false.
+*/
+	int SearchAndDisplayByID(int ID) 
+	{
+		if (m_List.GetLength() == 0) 
+		{
 			cout << "\n\t %% List is Empty %%\n";
 			return 0;
 		}
@@ -32,7 +41,14 @@ public:
 		return false;
 	}
 
-	//키보드에서 상품 ID를 입력받아서, master list에서 찾아, 화면 출력
+	
+		/**
+*	@brief	Search the item by item code and Display the item.
+*			키보드로 상품 ID를 입력받아 master list에서 찾아 화면 출력
+*	@pre	List should be initialized
+*	@post	none
+*	@return	if it works well return true, otherwise return false.
+*/
 	int SearchItembyID()
 	{
 		int id;
@@ -41,7 +57,13 @@ public:
 		return SearchAndDisplayByID(id); // master list에서 찾아 화면 출력
 	}
 
-	// mater list의 모든 상품을 화면출력
+
+/**
+*	@brief	Display all goods in the master list
+*	@pre	List should be initialized
+*	@post	none
+*	@return	if it works well return true, otherwise return false.
+*/
 	void DisplayAllItem()
 	{
 		ItemType data;

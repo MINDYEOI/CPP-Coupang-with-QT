@@ -13,7 +13,7 @@ class Application:public BaseType
 private:
     ifstream m_inFile;	// input file descriptor
     ofstream m_outFile;	// output file descriptor
-    DoublySortedLinkedList<ItemType> m_List;	// masterList
+    //DoublySortedLinkedList<ItemType> m_List;	// masterList
     DoublySortedLinkedList<CateType> m_cate;
     BasketType m_basket;
     int m_Command;		// current command number
@@ -143,12 +143,28 @@ public:
 */
     bool ReplaceProduct();
 
-
+    /*
+*	@brief	Display All content data from the category list.
+*	@pre	Category should be initialized.
+*	@post	none.
+*	@return	return true if this function works well, otherwise false.
+*/
     bool DisplayCateProducts();
+
+    /*
+*	@brief	Display the category list.
+*	@pre	Category should be initialized.
+*	@post	none.
+*	@return	return true if this function works well, otherwise false.
+*/
     bool DisplayCateName();
-    bool FindTheProduct();
-    bool GoToSubCate();
-    bool AddCate();
+
+    /*
+*	@brief	Add the product to the category
+*	@pre	Category should be initialized.
+*	@post	new item is added into the list.
+*	@return	return true if this function works well, otherwise false.
+*/
     bool AddProd();
 };
 
@@ -412,7 +428,7 @@ int Application::ManageCategory()
      motherCatePtr->AddProductInTheCate(1012);
      motherCatePtr->AddProductInTheCate(1021);
      motherCatePtr->AddProductInTheCate(1031);
-     motherCatePtr->AddProductInTheCate(1032);
+     //motherCatePtr->AddProductInTheCate(1032);
      // motherCatePtr->AddCateList("Kitchen", 101);
      // motherCatePtr->AddProductInTheCate(1011);
      // motherCatePtr->AddProductInTheCate(1012);
@@ -426,6 +442,7 @@ int Application::ManageCategory()
      // 카테고리 등록
      temp.SetCate("Eletronics", 20);
      m_cate.Add(temp);
+     motherCatePtr = m_cate.GetPtr(temp);
      // 서브 카테고리 등록
      //motherCatePtr->AddCateList("TV", 201);
      motherCatePtr->AddProductInTheCate(2011);
@@ -447,7 +464,7 @@ int Application::ManageCategory()
         cout << "\t|" << left << setw(WIDTH) << setfill(' ') << "  3: Add the product" << "|\n";
         cout << "\t=" << right << setw(WIDTH + 1) << setfill('=') << "=\n";
         cout << "\t  Select a function --> ";
-        cin >> select;
+
         if (cin.fail() || !(cin >> select) || select < 0 || select>4)	// input fail or input value is out of bound
         {
             cout << "\t    ### Invalid Command Number. Select again  ####" << endl;
@@ -497,13 +514,19 @@ bool Application::DisplayCateProducts()
 {
     CateType temp;
     int id;
+    cout << "\n\t Category ID --------------------";
     cout << "\n\t Home : 10   |  Eletronics : 20\n";
     cout << "\n\t Enter the Category ID : ";
     cin >> id;
     temp.SetCateID(id);
+    
     if (m_cate.Get(temp))
     {
-        temp.DisplayAllItem();
+        CateType* catePtr = m_cate.GetPtr(temp);
+        cout << "\n\tCurrent list" << endl;
+
+ 
+        catePtr->DisplayCategory();
         return true;
     }
     else
@@ -555,16 +578,27 @@ bool Application::AddProd()
     temp.SetCateID(id);
     if (m_cate.Get(temp))
     {
+        CateType* catePtr = m_cate.GetPtr(temp);
+        
         ItemType item;
-        item.SetRecordExceptPrimaryKeyFromKB();
-        item.SetCode(id + 0+(rand() % 10));
-        m_List.Add(item);
-        temp.AddProductInTheCate(item.GetCode());
-        return true;
+        item.SetCodeNumFromKB();
+        int bIsit = m_List.Get(item);
+        if (bIsit == true)
+        {
+            catePtr->AddProductInTheCate(item.GetCode());
+            cout << "\n\t [!] Successfully Added!\n";
+            return true;
+        }
+
+        else
+        {
+            cout << "\n\t [!] There is no goods with that goods ID\n";
+        }
+        
     }
     else
     {
-        cout << "\n\t [!] Not Found such cate ID\n";
+        cout << "\n\t [!] There is no category with that cate ID\n";
         return false;
     }
 }

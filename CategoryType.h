@@ -22,21 +22,62 @@ private:
 	DoublySortedLinkedList<CateType> m_cateList; // 카테고리 리스트
 	DoublySortedLinkedList<int> prodList;	// product list
 public:
-	// 이게 모하는거지,,?
-	// If terminal category, then return true
+
+	/**
+*	@brief	If this category is terminal node, return true, otherwise return false.
+*	@pre	List should be initialized.
+*	@post	none
+*	@return If this category is terminal node, return true, otherwise return false.
+*/
 	bool IsTerminal();
+
+	/**
+   *	@brief	Set a category information(id, name).
+   *	@pre	none.
+   *	@post	category id, name is set.
+   */
 	void SetCate(string _name, int _id);
+
+	/**
+*	@brief	Set a category id.
+*	@pre	none.
+*	@post	category id is set.
+*/
 	void SetCateID(int _id);
+
+	/**
+*	@brief	Set a category information(id, name) from keyboard.
+*	@pre	none.
+*	@post	category id, name is set.
+*/
 	void SetCateInfoFrKB(); // 키보드에서 카타고리 정보 입력
-	void DisplayCategory(); // display current category
-	void AddSubCateFrKB(); // add sub_category from KB
-	//void AddSubCate(ItemType data); // add sub_category from id
-	void AddProdFrKB();   // Add product to the terminal node from KB
+
+
+	/**
+*	@brief	display current category.
+*	@pre	Category should be initialized.
+*	@post	none.
+*/
+	void DisplayCategory();
+
+	/**
+*	@brief	Add product to the terminal node from keyboard.
+*	@pre	Category should be initialized, and terminal node should exist.
+*	@post	none.
+*/
+	void AddProdFrKB();  
 	//void AddProdFr(int _id);
-	void AddCateList(string _cateName, int _cateID);
+
+
+	//void AddCateList(string _cateName, int _cateID);
+
+	/**
+*	@brief	Add product to the terminal node
+*	@pre	Category should be initialized, and terminal node should exist.
+*	@post	none.
+*/
 	void AddProductInTheCate(int _id);
-	void GoToSubCategory();
-	void GoToMotherCategory();
+
 
 	bool operator < (CateType& data)
 	{
@@ -94,12 +135,12 @@ void CateType::SetCateInfoFrKB() // 키보드에서 카타고리 정보 입력
 }
 
 // 내가 만든 거! m_cateList에 카테고리 추가!
-void CateType::AddCateList(string _cateName, int _cateID)
-{
-	CateType cate;
-	cate.SetCate(_cateName, _cateID);
-	m_cateList.Add(cate);
-}
+//	void CateType::AddCateList(string _cateName, int _cateID)
+//	{
+//		CateType cate;
+//		cate.SetCate(_cateName, _cateID);
+//		m_cateList.Add(cate);
+//	}
 
 void CateType::DisplayCategory() // display current category
 {
@@ -121,11 +162,8 @@ void CateType::DisplayCategory() // display current category
 		}
 	}
 }
-void CateType::AddSubCateFrKB() // add sub_category from KB
-{
-	CateType cate;
-	cate.SetCateInfoFrKB();
-}
+
+
 
 
 void CateType::AddProdFrKB()   // Add product to the terminal node from KB

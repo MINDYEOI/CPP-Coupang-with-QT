@@ -46,21 +46,76 @@ public:
 		delete m_pLast;
 	}
 
+	/**
+* @brief   Check this list is empty or not.
+* @pre     none.
+* @post    none.
+* @return  if the iist is empty, return true, otherwise return false.
+*/
 	bool IsEmpty();
 
+	/**
+* @brief	Make the list empty.
+* @pre		The list is allocated.
+* @post		The list is empty.
+*/
 	void MakeEmpty();
 
+	/**
+* @breif	Return the item number in the list.
+* @pre		none.
+* @post		none.
+* @return	the item number in the list.
+*/
 	int GetLength() const;
 
+
+	/**
+	* @brief	Add the item in the list.
+	* @pre		The list doesn't have the item. (The list can't be 'full' because it is linked list!)
+	* @post		The item is added.
+	* @param	The item which is added in the list.
+	* @return	If this function works well, return true, otherwise return false.
+	*/
 	int Add(T item);
 
+	/**
+	* @brief	Delete the item in the list.
+	* @pre		The list is not empty and have the item.
+	* @post		The item is deleted.
+	* @param	The item which is deleted in the list.
+	* @return	If this function works well, return true, otherwise return false.
+	*/
 	bool Delete(T item);
 
+	/**
+* @brief	Replace the item in the list.
+* @pre		The list has the item.
+* @post		The item information is changed.
+* @param	The item which information will be changed.
+* @return	If this function works well, return true, otherwise return false.
+*/
 	bool Replace(T item);
 
-	int Get(T& item); // item에 전달된 키와 일치하는 레코드를 복사하여 리턴
+	/**
+*	@brief	Retrieve list element whose key matches item's key (if present).
+*			(item에 전달된 키와 일치하는 레코드를 복사하여 리턴)
+*	@pre	Key member of item is initialized.
+*	@post	If there is an element whose key matches with item's key then the element's record is copied to the item.
+*   @param	The item which want to retrieve in the list.
+*	@return	1 if any element's primary key matches with item's, otherwise 0.
+*/
+	int Get(T& item); 
 
-	T* GetPtr(T& item); // item에 전달된 키와 일치하는 레코드 포인터 리턴
+		/**
+	*	@brief	Retrieve list element pointer whose key matches item's key (if present).
+	*			(item에 전달된 키와 일치하는 레코드 포인터 리턴)
+	*	@pre	Key member of item is initialized.
+	*	@post	If there is an element whose key matches with item's key then the element's record is copied to the item.
+	*   @param	The item which want to retrieve in the list.
+	*	@return	1 if any element's primary key matches with item's, otherwise 0.
+	*/
+	T* GetPtr(T& item);
 
 	DoublyNodeType<T>* GetFirstNode() { return m_pFirst; };
 };
